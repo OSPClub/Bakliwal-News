@@ -189,6 +189,7 @@ Project Structure
 │   ├── .metadata
 │   ├── pubspec.lock
 │   └── pubspec.yaml
+├── privacy-policy.md
 └── .gitignore
 ```
 
