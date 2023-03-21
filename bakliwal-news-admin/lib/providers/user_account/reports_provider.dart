@@ -19,10 +19,12 @@ class ReportsProvider with ChangeNotifier {
 
     final reportRef =
         await FirebaseDatabase.instance.ref("reports/articles").get();
-    final allReports = reportRef.value as Map;
+    final allReports = reportRef.value;
     List<Report> fetchedReports = [];
 
+    // ignore: unnecessary_null_comparison
     if (allReports != null) {
+      allReports as Map;
       allReports.forEach((id, report) async {
         fetchedReports.add(
           Report(

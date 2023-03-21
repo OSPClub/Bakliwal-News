@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:bakliwal_news_admin/controllers/menu_controller.dart';
+import 'package:bakliwal_news_admin/controllers/menu_controller.dart' as menu;
 import 'package:bakliwal_news_admin/screens/reports/report_screen.dart';
 import 'package:bakliwal_news_admin/responsive.dart';
 import 'package:bakliwal_news_admin/screens/settings/settings_screen.dart';
@@ -40,7 +40,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: context.read<MenuController>().scaffoldKey,
+      key: context.read<menu.MenuController>().scaffoldKey,
       drawer: SideMenu(
         currentPage: currentPage,
         changePage: currentPageIndex,

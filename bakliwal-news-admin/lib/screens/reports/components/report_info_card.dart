@@ -7,6 +7,7 @@ import 'package:bakliwal_news_admin/models/report_model.dart';
 import 'package:bakliwal_news_admin/screens/secondary_screens/article_discription_screen.dart';
 import 'package:bakliwal_news_admin/style/style_declaration.dart';
 
+// ignore: must_be_immutable
 class ReportInfoCardGridView extends StatefulWidget {
   ReportInfoCardGridView({
     Key? key,

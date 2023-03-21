@@ -42,7 +42,7 @@ class DashboardScreen extends StatelessWidget {
                             const SizedBox(height: defaultPadding),
                             Text(
                               "Recent Articles",
-                              style: Theme.of(context).textTheme.subtitle1,
+                              style: Theme.of(context).textTheme.titleMedium,
                             ),
                             const SizedBox(height: defaultPadding),
                             ListView.builder(

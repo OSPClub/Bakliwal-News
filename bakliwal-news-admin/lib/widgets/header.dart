@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
-import 'package:bakliwal_news_admin/controllers/menu_controller.dart';
+import 'package:bakliwal_news_admin/controllers/menu_controller.dart' as menu;
 import 'package:bakliwal_news_admin/responsive.dart';
 import 'package:bakliwal_news_admin/constants.dart';
 
@@ -27,12 +27,12 @@ class Header extends StatelessWidget {
         if (!Responsive.isDesktop(context))
           IconButton(
             icon: const Icon(Icons.menu),
-            onPressed: context.read<MenuController>().controlMenu,
+            onPressed: context.read<menu.MenuController>().controlMenu,
           ),
         if (!Responsive.isMobile(context))
           Text(
             pageType,
-            style: Theme.of(context).textTheme.headline6,
+            style: Theme.of(context).textTheme.titleLarge,
           ),
         if (!Responsive.isMobile(context))
           Spacer(flex: Responsive.isDesktop(context) ? 2 : 1),

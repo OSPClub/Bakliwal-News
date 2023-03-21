@@ -393,6 +393,11 @@ class _DescriptionTextWidgetState extends State<DescriptionTextWidget> {
       child: secondHalf!.isEmpty
           ? Text(
               firstHalf!,
+              style: TextStyle(
+                color: Colors.grey[350]!,
+                fontFamily: AppFonts.cabin,
+                fontSize: 16,
+              ),
             )
           : Column(
               mainAxisAlignment: MainAxisAlignment.start,

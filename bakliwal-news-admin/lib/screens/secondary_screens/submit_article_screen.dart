@@ -138,6 +138,7 @@ class _SubmitArticleScreenState extends State<SubmitArticleScreen> {
   void didChangeDependencies() {
     if (_isInit) {
       final routeData = ModalRoute.of(context)!.settings.arguments as Map;
+      // ignore: unnecessary_null_comparison
       if (routeData != null) {
         article = routeData["info"];
         isSuggestedArticle = routeData["isSuggested"];

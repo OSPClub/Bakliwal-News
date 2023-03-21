@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 import 'package:bakliwal_news_admin/providers/users.dart';
 import 'package:bakliwal_news_admin/models/user_information.dart';
-import 'package:bakliwal_news_admin/responsive.dart';
 import 'package:bakliwal_news_admin/constants.dart';
 import 'package:bakliwal_news_admin/widgets/header.dart';
 import 'package:bakliwal_news_admin/screens/users/components/custome_pupup.dart';
@@ -53,7 +52,7 @@ class _UsersScreenState extends State<UsersScreen> {
               children: [
                 Text(
                   "Intellectual People",
-                  style: Theme.of(context).textTheme.subtitle1,
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
               ],
             ),

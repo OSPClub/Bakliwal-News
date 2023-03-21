@@ -40,9 +40,9 @@ class Articles with ChangeNotifier {
 
       final commentsRef =
           await FirebaseDatabase.instance.ref("comments/$id/").get();
-      final allComments = commentsRef.value as Map;
 
       if (commentsRef.exists) {
+        final allComments = commentsRef.value as Map;
         allComments.forEach((key, comment) async {
           final commentorsDataRef = await FirebaseDatabase.instance
               .ref("users/${comment["commentorUserId"]}/")
@@ -65,8 +65,9 @@ class Articles with ChangeNotifier {
         });
       }
 
-      Map? articleUpvotePointer = article["upVotes"] as Map;
+      final articleUpvotePointer = article["upVotes"];
       if (articleUpvotePointer != null) {
+        articleUpvotePointer as Map;
         articleUpvotePointer.forEach((userId, upVoteData) {
           fetchedUpvotes.add(
             ArticleUpvotes(

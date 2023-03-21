@@ -37,9 +37,9 @@ class MostUpvoted with ChangeNotifier {
 
       final commentsRef =
           await FirebaseDatabase.instance.ref("comments/$id/").get();
-      final allComments = commentsRef.value as Map;
 
       if (commentsRef.exists) {
+      final allComments = commentsRef.value as Map;
         allComments.forEach((key, comment) async {
           final commentorsDataRef = await FirebaseDatabase.instance
               .ref("users/${comment["commentorUserId"]}/")

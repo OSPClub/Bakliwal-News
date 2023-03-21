@@ -58,7 +58,7 @@ class _ArticlesScreenState extends State<ArticlesScreen> {
               children: [
                 Text(
                   "All Plates",
-                  style: Theme.of(context).textTheme.subtitle1,
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
                 ElevatedButton.icon(
                   style: TextButton.styleFrom(

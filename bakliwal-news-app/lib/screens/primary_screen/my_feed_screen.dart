@@ -103,7 +103,7 @@ class MyFeedScreen extends StatelessWidget {
                 return NewsCard(
                   key: UniqueKey(),
                   newsArticle: allArticles[index],
-                  userInformation: userInformation!,
+                  userInformation: userInformation,
                   screenName: ScreenType.myFeeds,
                 );
               }),

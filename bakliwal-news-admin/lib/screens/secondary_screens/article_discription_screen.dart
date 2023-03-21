@@ -37,6 +37,7 @@ class ArticleDiscriptionScreen extends StatelessWidget {
     NewsArticle newsArticle =
         ModalRoute.of(context)!.settings.arguments as NewsArticle;
 
+    // ignore: unused_local_variable
     UserInformation userInformation = Provider.of<UserAccount>(
       context,
       listen: false,

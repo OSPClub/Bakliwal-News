@@ -28,9 +28,10 @@ class UserBookmarks with ChangeNotifier {
           .ref()
           .child("users/$userId/bookmarks/")
           .get();
-      final allBookmarks = bookmarkRef.value as Map;
 
+      final allBookmarks = bookmarkRef.value;
       if (allBookmarks != null) {
+        allBookmarks as Map;
         allBookmarks.forEach((articleId, bookmarkData) {
           NewsArticle newsArticle = allArticles
               .firstWhere((article) => article.articleId == articleId);

@@ -12,7 +12,7 @@ import 'package:bakliwal_news_admin/providers/articles.dart';
 import 'package:bakliwal_news_admin/repository/auth_repo.dart';
 import 'package:bakliwal_news_admin/screens/main/main_screen.dart';
 import 'package:bakliwal_news_admin/screens/auth_screen/login.dart';
-import 'package:bakliwal_news_admin/controllers/menu_controller.dart';
+import 'package:bakliwal_news_admin/controllers/menu_controller.dart' as menu;
 import 'package:bakliwal_news_admin/screens/profile/profile_screen.dart';
 import 'package:bakliwal_news_admin/package_service/locator_service.dart';
 import 'package:bakliwal_news_admin/providers/user_account/user_account.dart';
@@ -39,7 +39,7 @@ class BakliwalNewsAdmin extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => MenuController(),
+          create: (context) => menu.MenuController(),
         ),
         ChangeNotifierProvider(
           create: (context) => Articles(),

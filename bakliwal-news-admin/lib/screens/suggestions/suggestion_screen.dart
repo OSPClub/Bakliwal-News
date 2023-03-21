@@ -55,7 +55,7 @@ class _SuggestedArticlesScreenState extends State<SuggestedArticlesScreen> {
               children: [
                 Text(
                   "New Ideas!",
-                  style: Theme.of(context).textTheme.subtitle1,
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
                 // ElevatedButton.icon(
                 //   style: TextButton.styleFrom(

@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_null_comparison
+// ignore_for_file: unnecessary_null_comparison, avoid_print
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/widgets.dart';
 import 'package:profanity_filter/profanity_filter.dart';
@@ -33,8 +33,9 @@ class Articles with ChangeNotifier {
     _newsArticles = [];
     // final filter = ProfanityFilter();
     final articlesRef = await FirebaseDatabase.instance.ref("articles/").get();
-    final allArticles = articlesRef.value as Map;
+    final allArticles = articlesRef.value;
     if (allArticles != null) {
+      allArticles as Map;
       _rawSizeOfArticles = allArticles.length;
       List<NewsArticle> fetchedArticles = [];
 
@@ -49,9 +50,10 @@ class Articles with ChangeNotifier {
 
         final commentsRef =
             await FirebaseDatabase.instance.ref("comments/$id/").get();
-        final allComments = commentsRef.value as Map;
+        final allComments = commentsRef.value;
 
         if (commentsRef.exists) {
+          allComments as Map;
           allComments.forEach((key, comment) async {
             final commentorsDataRef = await FirebaseDatabase.instance
                 .ref("users/${comment["commentorUserId"]}/")
@@ -72,7 +74,7 @@ class Articles with ChangeNotifier {
           });
         }
 
-        Map? articleUpvotePointer = article["upVotes"] as Map;
+        Map? articleUpvotePointer = article["upVotes"];
         if (articleUpvotePointer != null) {
           articleUpvotePointer.forEach((userId, upVoteData) {
             fetchedUpvotes.add(
@@ -111,8 +113,9 @@ class Articles with ChangeNotifier {
     final filter = ProfanityFilter();
     final articlesRef =
         await FirebaseDatabase.instance.ref("article_sugestions/").get();
-    final allArticles = articlesRef.value as Map;
+    final allArticles = articlesRef.value;
     if (allArticles != null) {
+      allArticles as Map;
       _rawSizeOfSuggestedArticles = allArticles.length;
       List<NewsArticle> fetchedArticles = [];
 
@@ -127,9 +130,10 @@ class Articles with ChangeNotifier {
 
         final commentsRef =
             await FirebaseDatabase.instance.ref("comments/$id/").get();
-        final allComments = commentsRef.value as Map;
+        final allComments = commentsRef.value;
 
         if (commentsRef.exists) {
+          allComments as Map;
           allComments.forEach((key, comment) async {
             final commentorsDataRef = await FirebaseDatabase.instance
                 .ref("users/${comment["commentorUserId"]}/")
@@ -150,7 +154,7 @@ class Articles with ChangeNotifier {
           });
         }
 
-        Map? articleUpvotePointer = article["upVotes"] as Map;
+        Map? articleUpvotePointer = article["upVotes"];
         if (articleUpvotePointer != null) {
           articleUpvotePointer.forEach((userId, upVoteData) {
             fetchedUpvotes.add(

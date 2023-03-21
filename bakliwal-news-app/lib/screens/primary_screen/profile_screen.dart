@@ -31,17 +31,19 @@ class ProfileScreen extends StatelessWidget {
         .child("users/${userInformation!.userId}/comments")
         .limitToFirst(10)
         .get();
-    Map? allcomments = userExtraDataComments.value as Map;
+    final allcomments = userExtraDataComments.value;
 
     if (allcomments != null) {
+      allcomments as Map;
       allcomments.forEach((_, commentsData) async {
         final extraDataCommentsRef = await FirebaseDatabase.instance
             .ref()
             .child(
                 "comments/${commentsData['articleId']}/${commentsData['commentId']}")
             .get();
-        final extraDataComments = extraDataCommentsRef.value as Map;
+        final extraDataComments = extraDataCommentsRef.value;
         if (extraDataComments != null) {
+          extraDataComments as Map;
           fetchedcomments.add(
             Comments(
               commentId: commentsData['commentId'],
@@ -715,9 +717,9 @@ class ArticleComments extends StatelessWidget {
 
     final commentsRef =
         await FirebaseDatabase.instance.ref("comments/$aricleId/").get();
-    final allComments = commentsRef.value as Map;
 
     if (commentsRef.exists) {
+      final allComments = commentsRef.value as Map;
       allComments.forEach((key, comment) async {
         final commentorsDataRef = await FirebaseDatabase.instance
             .ref("users/${comment["commentorUserId"]}/")
@@ -739,8 +741,9 @@ class ArticleComments extends StatelessWidget {
       });
     }
 
-    Map? articleUpvotePointer = allArticles["upVotes"] as Map;
+    final articleUpvotePointer = allArticles["upVotes"];
     if (articleUpvotePointer != null) {
+      articleUpvotePointer as Map;
       articleUpvotePointer.forEach((userId, upVoteData) {
         fetchedUpvotes.add(
           ArticleUpvotes(

@@ -22,7 +22,7 @@ class AuthRepo {
       final userExtraData = data.value as Map;
       final userData = userExtraData;
 
-      Map? allReadArticles = userExtraData["articlesRead"] as Map;
+      Map? allReadArticles = userExtraData["articlesRead"];
       List<AllReadArticles> fetchedAllReadArticles = [];
       if (allReadArticles != null) {
         allReadArticles.forEach((articleId, readData) {
@@ -43,7 +43,7 @@ class AuthRepo {
         });
       }
 
-      Map? allbookmarks = userExtraData["bookmarks"] as Map;
+      Map? allbookmarks = userExtraData["bookmarks"];
       List<Bookmarks> fetchedbookmarks = [];
 
       if (allbookmarks != null) {

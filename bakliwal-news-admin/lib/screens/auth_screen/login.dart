@@ -5,7 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:bakliwal_news_admin/screens/main/main_screen.dart';
 import 'package:bakliwal_news_admin/package_service/locator_service.dart';
 import 'package:bakliwal_news_admin/repository/auth_repo.dart';
 
@@ -63,7 +62,6 @@ class _LoginScreenState extends State<LoginScreen> {
       User? user = authRef.currentUser;
       if (user!.emailVerified) {
         // Navigator.of(context).pushReplacementNamed(MainScreen.routeName);
-
       } else {
         setState(() {
           _isLoading = false;
