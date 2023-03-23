@@ -17,12 +17,12 @@ class AlertDialougePopup extends StatelessWidget {
     return AlertDialog(
       title: Text(
         title!,
-        style: Theme.of(context).textTheme.headline6,
+        style: Theme.of(context).textTheme.titleLarge,
       ),
       actions: actions,
       content: Text(
         content!,
-        style: Theme.of(context).textTheme.bodyText2,
+        style: Theme.of(context).textTheme.bodyMedium,
       ),
     );
   }

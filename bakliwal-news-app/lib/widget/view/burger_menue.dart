@@ -14,6 +14,7 @@ import 'package:bakliwal_news_app/repository/auth_repo.dart';
 import 'package:bakliwal_news_app/custome_icons_icons.dart';
 import 'package:bakliwal_news_app/screens/auth_screen/login.dart';
 import 'package:bakliwal_news_app/screens/primary_screen/profile_screen.dart';
+import 'package:bakliwal_news_app/screens/primary_screen/aboutus_screen.dart';
 import 'package:bakliwal_news_app/screens/secondary_screens/account_details_screen.dart';
 import 'package:bakliwal_news_app/models/user_information.dart';
 import 'package:bakliwal_news_app/providers/view/page_transiction_provider.dart';
@@ -32,7 +33,7 @@ class BurgerMennueDrawer extends StatelessWidget {
     Settings settings = Provider.of<ConstSettings>(context).constSettings;
     AuthRepo _authRepo = locator.get<AuthRepo>();
     double tabsFontSize = 20;
-    double spaceBetweenTabs = 15;
+    double spaceBetweenTabs = 12;
     Color tabColor = Colors.white70;
 
     return SafeArea(
@@ -348,6 +349,34 @@ class BurgerMennueDrawer extends StatelessWidget {
                         ),
                         Text(
                           "Feedback",
+                          style: TextStyle(
+                            color: tabColor,
+                            fontSize: tabsFontSize,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: spaceBetweenTabs,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                      Navigator.of(context).pushNamed(AboutUsScreen.routeName);
+                    },
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.question_mark,
+                          color: tabColor,
+                          size: tabsFontSize,
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          "About Us",
                           style: TextStyle(
                             color: tabColor,
                             fontSize: tabsFontSize,

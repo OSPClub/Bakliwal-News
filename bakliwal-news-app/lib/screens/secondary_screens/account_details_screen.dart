@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_null_comparison, avoid_print
+// ignore_for_file: unnecessary_null_comparison, avoid_print, use_build_context_synchronously
 
 import 'dart:io';
 
@@ -113,7 +113,6 @@ class _AccountDetailsScreenState extends State<AccountDetailsScreen> {
         print("${error.message} : Code ${error.code}");
       } finally {
         await locator.get<AuthRepo>().fetchAndSetUser(context: context);
-        // ignore: use_build_context_synchronously
         Navigator.of(context).pop();
       }
     }

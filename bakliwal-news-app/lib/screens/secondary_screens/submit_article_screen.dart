@@ -15,7 +15,7 @@ import 'package:provider/provider.dart';
 class SubmitArticleScreen extends StatefulWidget {
   const SubmitArticleScreen({super.key});
 
-  static const routeName = "submit-article-screen";
+  static const routeName = "/submit-article-screen";
   @override
   State<SubmitArticleScreen> createState() => _SubmitArticleScreenState();
 }

@@ -6,6 +6,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:bakliwal_news_app/firebase_options.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'package:bakliwal_news_app/style/style_declaration.dart';
 import 'package:bakliwal_news_app/package_service/locator_service.dart';
 import 'package:bakliwal_news_app/providers/settings_const.dart';
 import 'package:bakliwal_news_app/providers/news/changelogs.dart';
@@ -20,6 +21,7 @@ import 'package:bakliwal_news_app/screens/secondary_screens/submit_article_scree
 import 'package:bakliwal_news_app/screens/auth_screen/login.dart';
 import 'package:bakliwal_news_app/screens/secondary_screens/account_details_screen.dart';
 import 'package:bakliwal_news_app/screens/primary_screen/profile_screen.dart';
+import 'package:bakliwal_news_app/screens/primary_screen/aboutus_screen.dart';
 import 'package:bakliwal_news_app/screens/secondary_screens/article_discription_screen.dart';
 
 void main() async {
@@ -91,7 +93,7 @@ class NewApplication extends StatelessWidget {
                 ),
               ),
               primaryTextTheme: const TextTheme(
-                headline2: TextStyle(
+                displayMedium: TextStyle(
                   fontFamily: "Silkscreen",
                 ),
               ),
@@ -113,7 +115,8 @@ class NewApplication extends StatelessWidget {
                   const AccountDetailsScreen(),
               LoginScreen.routeName: (ctx) => const LoginScreen(),
               SubmitArticleScreen.routeName: (ctx) =>
-                  const SubmitArticleScreen()
+                  const SubmitArticleScreen(),
+              AboutUsScreen.routeName: (ctx) => const AboutUsScreen(),
             },
           );
         },

@@ -6,6 +6,7 @@ class AppColors {
   static const accent = Colors.purple;
   static const shadowColors = Color.fromARGB(255, 97, 97, 97);
   static const substituteColor = Color.fromARGB(255, 109, 108, 108);
+  static const textColor = Colors.white;
 }
 
 class AppFonts {

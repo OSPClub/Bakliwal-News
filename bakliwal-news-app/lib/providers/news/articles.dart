@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_null_comparison, avoid_print
+// ignore_for_file: unnecessary_null_comparison, avoid_print, use_build_context_synchronously
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/widgets.dart';
 
