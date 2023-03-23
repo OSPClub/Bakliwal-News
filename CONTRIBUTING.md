@@ -1,4 +1,4 @@
-# Contributing to Python-Project-Scripts
+# Contributing to Bakliwal News
 
 Thanks for your interest in Flutter. Our goal is to bring fast, reliable, and trouble-free open-source projects to all communities.
 
