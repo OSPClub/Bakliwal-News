@@ -1,0 +1,73 @@
+name: bakliwal_news_admin
+description: "Admin Software for the Bakliwal News App and open source software for Tech user generated news."
+
+publish_to: "none"
+
+version: 2.0.0+1
+
+environment:
+  sdk: ">=3.2.6 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+
+  intl: ^0.19.0
+  get_it: ^7.6.7
+  provider: ^6.1.1
+  fl_chart: ^0.66.2
+  flutter_svg: ^2.0.9
+  settings_ui: ^2.0.2
+  image_picker: ^1.0.7
+  google_fonts: ^6.1.0
+  data_table_2: ^2.5.10
+  profanity_filter: ^2.0.0
+  flutter_screenutil: ^5.9.0
+  flutter_native_splash: 2.3.10
+  flutter_feather_icons: ^2.0.0+1
+
+  url_launcher: ^6.2.4
+
+  firebase_core: ^2.25.4
+  firebase_auth: ^4.17.4
+  cloud_firestore: ^4.15.4
+  firebase_storage: ^11.6.5
+  firebase_database: ^10.4.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+  flutter_launcher_icons: ^0.13.1
+
+flutter_native_splash:
+  color: "#000000"
+  image: assets/images/BakliwalNewsAdminLogo.png
+  android_12:
+    image: assets/images/BakliwalNewsAdminLogo.png
+    color: "#000000"
+  android: true
+  ios: true
+  image_web: assets/images/BakliwalNewsAdminLogo.png
+
+flutter_launcher_icons:
+  image_path_android: "assets/images/BakliwalNewsAdminLogo.jpg"
+  image_path_ios: "assets/images/BakliwalNewsAdminLogo.jpg"
+  android: true
+  ios: true
+  min_sdk_android: 21
+  remove_alpha_ios: true
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/icons/
+
+  fonts:
+    - family: CustomeIcons
+      fonts:
+        - asset: assets/fonts/CustomeIcons.ttf

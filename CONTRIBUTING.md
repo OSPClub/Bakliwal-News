@@ -33,15 +33,15 @@ Pull requests are the best way to propose changes to the codebase (we use [Githu
 
 In short, when you submit code changes, your submissions are understood to be under the same [MIT License](http://choosealicense.com/licenses/mit/) that covers the project. Feel free to contact the maintainers if that's a concern.
 
-## Report bugs using Github's [issues](https://github.com/OSPCommittee/Bakliwal-News/issues)
+## Report bugs using Github's [issues](https://github.com/OSPClub/Bakliwal-News/issues)
 
-We use GitHub issues to track public bugs. Report a bug by [opening a new issue](https://github.com/OSPCommittee/Bakliwal-News/issues/new/choose); it's that easy!
+We use GitHub issues to track public bugs. Report a bug by [opening a new issue](https://github.com/OSPClub/Bakliwal-News/issues/new/choose); it's that easy!
 
 ## Write bug reports with detail, background, and sample code
 
 [This is an example](http://stackoverflow.com/q/12488905/180626) of a bug report I like, and I think it's not a bad model. Here's [another example from Craig Hockenberry](http://www.openradar.me/11905408), an app developer whom I greatly respect.
 
-*Great Bug Reports* tend to have:
+_Great Bug Reports_ tend to have:
 
 - A quick summary and/or background
 - Steps to reproduce
@@ -55,7 +55,7 @@ People love thorough bug reports. I'm not even kidding.
 
 ## Use a Consistent Coding Style
 
-You can check [here](https://github.com/flutter/flutter/wiki/Style-guide-for-Flutter-repo) for more information about a good coding style. It's important to respect and follow it up to keep good practices. 
+You can check [here](https://github.com/flutter/flutter/wiki/Style-guide-for-Flutter-repo) for more information about a good coding style. It's important to respect and follow it up to keep good practices.
 
 ## License
 
