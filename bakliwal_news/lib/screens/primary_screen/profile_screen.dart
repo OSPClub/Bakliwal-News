@@ -1,7 +1,5 @@
 // ignore_for_file: unnecessary_null_comparison, use_build_context_synchronously
 
-import 'package:bakliwal_news/providers/settings_const.dart';
-import 'package:bakliwal_news/widget/view/custome_snackbar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -11,9 +9,11 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:provider/provider.dart';
 
 import 'package:bakliwal_news/models/article_upvotes.dart';
-import 'package:bakliwal_news/providers/news/articles.dart';
-import 'package:bakliwal_news/screens/secondary_screens/article_discription_screen.dart';
-import 'package:bakliwal_news/models/news_article.dart';
+import 'package:bakliwal_news/providers/settings_const.dart';
+import 'package:bakliwal_news/widget/view/custome_snackbar.dart';
+import 'package:bakliwal_news/providers/news/user_articles.dart';
+import 'package:bakliwal_news/screens/secondary_screens/user_article_canonical.dart';
+import 'package:bakliwal_news/models/user_article.dart';
 import 'package:bakliwal_news/custome_icons_icons.dart';
 import 'package:bakliwal_news/models/user_information.dart';
 import 'package:bakliwal_news/providers/user_account/user_account.dart';
@@ -31,7 +31,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   List<Comments> fetchedcomments = [];
-  List<NewsArticle> fetchedPublishedArticles = [];
+  List<UserArticle> fetchedPublishedArticles = [];
   bool isStateChanged = false;
   bool fetchingPublihsedArticles = true;
 
@@ -54,7 +54,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         final article = articlesdata.data() as Map;
 
         fetchedPublishedArticles.add(
-          NewsArticle(
+          UserArticle(
             articleId: id.toString(),
             title: article["title"].toString(),
             comments: [],
@@ -677,14 +677,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 itemBuilder: ((ctx, index) {
                                   return ListTile(
                                     onTap: () async {
-                                      NewsArticle? newsArticle = await Provider
-                                              .of<Articles>(context,
+                                      UserArticle? newsArticle = await Provider
+                                              .of<UserArticles>(context,
                                                   listen: false)
                                           .fetchAndSetSpecificArticle(
                                               fetchedPublishedArticles[index]
                                                   .articleId);
                                       Navigator.of(context).pushNamed(
-                                          ArticleDiscriptionScreen.routeName,
+                                          UserArticleCanonical.routeName,
                                           arguments: newsArticle ??
                                               fetchedPublishedArticles[index]);
                                     },
@@ -855,11 +855,11 @@ class ArticleComments extends StatelessWidget {
   }
 }
 
-Future<NewsArticle?> loadArticleForDiscriptionScreen(String aricleId) async {
+Future<UserArticle?> loadArticleForDiscriptionScreen(String aricleId) async {
   final articlesRef =
       await FirebaseDatabase.instance.ref("articles/$aricleId").get();
   final allArticles = articlesRef.value as Map;
-  NewsArticle? fetchedArticles;
+  UserArticle? fetchedArticles;
 
   final userRef = await FirebaseDatabase.instance
       .ref("users/${allArticles["userId"]}")
@@ -881,7 +881,7 @@ Future<NewsArticle?> loadArticleForDiscriptionScreen(String aricleId) async {
     });
   }
 
-  fetchedArticles = NewsArticle(
+  fetchedArticles = UserArticle(
     articleId: aricleId.toString(),
     title: allArticles["title"].toString(),
     comments: fetchedComments,

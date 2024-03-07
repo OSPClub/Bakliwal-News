@@ -1,16 +1,19 @@
+import 'package:bakliwal_news/models/public_article_model.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import 'package:bakliwal_news/models/screen_enums.dart';
 import 'package:bakliwal_news/widget/view/common_article_popmenue.dart';
 import 'package:bakliwal_news/style/style_declaration.dart';
-import 'package:bakliwal_news/models/news_article.dart';
+import 'package:bakliwal_news/models/user_article.dart';
 
 class ArticleDiscriptionAppBar extends StatelessWidget {
-  final NewsArticle newsArticle;
+  final UserArticle? userArticle;
+  final PublicArticleCanonicalModel? publicArticle;
   const ArticleDiscriptionAppBar({
     super.key,
-    required this.newsArticle,
+    required this.userArticle,
+    required this.publicArticle,
   });
 
   @override
@@ -21,14 +24,18 @@ class ArticleDiscriptionAppBar extends StatelessWidget {
         articleInformationWidget(),
         Row(
           children: [
-            CommonArticlePopMenue(
-              newsArticle: newsArticle,
-              iconSize: 35,
-              screenName: ScreenType.articleDiscription,
-            ),
-            const SizedBox(
-              width: 10,
-            ),
+            publicArticle == null
+                ? CommonArticlePopMenue(
+                    newsArticle: userArticle!,
+                    iconSize: 35,
+                    screenName: ScreenType.articleDiscription,
+                  )
+                : Container(),
+            publicArticle == null
+                ? const SizedBox(
+                    width: 10,
+                  )
+                : Container(),
             InkWell(
               onTap: () => Navigator.of(context).pop(),
               child: const Icon(
@@ -48,29 +55,55 @@ class ArticleDiscriptionAppBar extends StatelessWidget {
       width: 150,
       child: Row(
         children: [
-          newsArticle.userProfilePicture == null ||
-                  newsArticle.userProfilePicture!.isEmpty
-              ? ClipRRect(
-                  borderRadius: BorderRadius.circular(8.0),
-                  child: const Image(
-                    height: 40,
-                    width: 40,
-                    fit: BoxFit.cover,
-                    image: AssetImage("assets/images/profilePlaceholder.jpeg"),
-                  ),
-                )
-              : ClipRRect(
-                  borderRadius: BorderRadius.circular(8.0),
-                  child: Image(
-                    height: 40,
-                    width: 40,
-                    fit: BoxFit.cover,
-                    image: NetworkImage(
-                      scale: 15,
-                      newsArticle.userProfilePicture!,
+          publicArticle == null
+              ? userArticle!.userProfilePicture == null ||
+                      userArticle!.userProfilePicture!.isEmpty
+                  ? ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: const Image(
+                        height: 40,
+                        width: 40,
+                        fit: BoxFit.cover,
+                        image:
+                            AssetImage("assets/images/profilePlaceholder.jpeg"),
+                      ),
+                    )
+                  : ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: Image(
+                        height: 40,
+                        width: 40,
+                        fit: BoxFit.cover,
+                        image: NetworkImage(
+                          scale: 15,
+                          userArticle!.userProfilePicture!,
+                        ),
+                      ),
+                    )
+              : publicArticle!.user.profileImage == null ||
+                      publicArticle!.user.profileImage!.isEmpty
+                  ? ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: const Image(
+                        height: 40,
+                        width: 40,
+                        fit: BoxFit.cover,
+                        image:
+                            AssetImage("assets/images/profilePlaceholder.jpeg"),
+                      ),
+                    )
+                  : ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: Image(
+                        height: 40,
+                        width: 40,
+                        fit: BoxFit.cover,
+                        image: NetworkImage(
+                          scale: 15,
+                          publicArticle!.user.profileImage!,
+                        ),
+                      ),
                     ),
-                  ),
-                ),
           const SizedBox(
             width: 10,
           ),
@@ -79,7 +112,9 @@ class ArticleDiscriptionAppBar extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  newsArticle.username!,
+                  publicArticle == null
+                      ? userArticle!.username!
+                      : publicArticle!.user.name!,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(color: Colors.white),
                 ),
@@ -88,7 +123,9 @@ class ArticleDiscriptionAppBar extends StatelessWidget {
                 ),
                 Text(
                   "Published on ${DateFormat("yMMMd").format(
-                    newsArticle.publishedDate!,
+                    publicArticle == null
+                        ? userArticle!.publishedDate!
+                        : publicArticle!.publishedTimestamp!,
                   )}",
                   style: TextStyle(
                     fontSize: 10,

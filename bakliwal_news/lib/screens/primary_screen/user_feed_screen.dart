@@ -14,22 +14,22 @@ import 'package:bakliwal_news/providers/user_account/user_account.dart';
 import 'package:bakliwal_news/repository/auth_repo.dart';
 import 'package:bakliwal_news/models/screen_enums.dart';
 import 'package:bakliwal_news/view/news_card_shimmer.dart';
-import 'package:bakliwal_news/widget/news_card/news_card.dart';
-import 'package:bakliwal_news/models/news_article.dart';
-import 'package:bakliwal_news/providers/news/articles.dart';
+import 'package:bakliwal_news/widget/news_card/user_news_card.dart';
+import 'package:bakliwal_news/models/user_article.dart';
+import 'package:bakliwal_news/providers/news/user_articles.dart';
 
-class MyFeedScreen extends StatefulWidget {
-  const MyFeedScreen({super.key});
+class UserFeedScreen extends StatefulWidget {
+  const UserFeedScreen({super.key});
 
   @override
-  State<MyFeedScreen> createState() => _MyFeedScreenState();
+  State<UserFeedScreen> createState() => _UserFeedScreenState();
 }
 
-class _MyFeedScreenState extends State<MyFeedScreen> {
+class _UserFeedScreenState extends State<UserFeedScreen> {
   UserInformation? userInformation;
   Appsettings? settings;
   ScrollController paginationScrollController = ScrollController();
-  List<NewsArticle> allArticles = [];
+  List<UserArticle> allArticles = [];
   bool gettingMoreArticles = false;
   bool moreArticlesAvailable = true;
 
@@ -43,7 +43,7 @@ class _MyFeedScreenState extends State<MyFeedScreen> {
     await locator.get<AuthRepo>().fetchAndSetUser(context: context);
     userInformation =
         Provider.of<UserAccount>(context, listen: false).personalInformation;
-    final articlesDataRef = Provider.of<Articles>(context, listen: false);
+    final articlesDataRef = Provider.of<UserArticles>(context, listen: false);
     articlesDataRef.setFetchLogicToDefault();
     await articlesDataRef.fetchAndSetInitArticles();
   }
@@ -56,7 +56,8 @@ class _MyFeedScreenState extends State<MyFeedScreen> {
       double threshold = MediaQuery.of(context).size.height * 0.25;
 
       if (maxScroll - currentScroll <= threshold) {
-        final articlesDataRef = Provider.of<Articles>(context, listen: false);
+        final articlesDataRef =
+            Provider.of<UserArticles>(context, listen: false);
         articlesDataRef.fetchAndSetMoreArticles();
       }
     });
@@ -70,11 +71,11 @@ class _MyFeedScreenState extends State<MyFeedScreen> {
       body: FutureBuilder(
         future: loadData(context),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-          allArticles = Provider.of<Articles>(context).newsArticles;
+          allArticles = Provider.of<UserArticles>(context).newsArticles;
           moreArticlesAvailable =
-              Provider.of<Articles>(context).moreArticlesAvailable;
+              Provider.of<UserArticles>(context).moreArticlesAvailable;
           gettingMoreArticles =
-              Provider.of<Articles>(context).gettingMoreArticles;
+              Provider.of<UserArticles>(context).gettingMoreArticles;
 
           return snapshot.connectionState == ConnectionState.waiting ||
                   allArticles.isEmpty
@@ -142,7 +143,7 @@ class _MyFeedScreenState extends State<MyFeedScreen> {
               shrinkWrap: true,
               itemCount: allArticles.length,
               itemBuilder: ((ctx, index) {
-                return NewsCard(
+                return UserNewsCard(
                   key: UniqueKey(),
                   newsArticle: allArticles[index],
                   userInformation: userInformation,

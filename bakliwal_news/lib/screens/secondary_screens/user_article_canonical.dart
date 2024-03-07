@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:profanity_filter/profanity_filter.dart';
 import 'package:firebase_database/firebase_database.dart';
 
-import 'package:bakliwal_news/providers/news/articles.dart';
+import 'package:bakliwal_news/providers/news/user_articles.dart';
 import 'package:bakliwal_news/models/settings_model.dart';
 import 'package:bakliwal_news/providers/settings_const.dart';
 import 'package:bakliwal_news/widget/view/custome_snackbar.dart';
@@ -19,24 +19,23 @@ import 'package:bakliwal_news/models/user_information.dart';
 import 'package:bakliwal_news/providers/user_account/user_account.dart';
 import 'package:bakliwal_news/widget/view/article_discription_appbar.dart';
 import 'package:bakliwal_news/style/style_declaration.dart';
-import 'package:bakliwal_news/models/news_article.dart';
+import 'package:bakliwal_news/models/user_article.dart';
 
 // ignore: must_be_immutable
-class ArticleDiscriptionScreen extends StatefulWidget {
-  const ArticleDiscriptionScreen({super.key});
+class UserArticleCanonical extends StatefulWidget {
+  const UserArticleCanonical({super.key});
 
-  static const routeName = "./article-discription-screen";
+  static const routeName = "./user-article-canonical";
 
   @override
-  State<ArticleDiscriptionScreen> createState() =>
-      _ArticleDiscriptionScreenState();
+  State<UserArticleCanonical> createState() => _UserArticleCanonicalState();
 }
 
-class _ArticleDiscriptionScreenState extends State<ArticleDiscriptionScreen> {
+class _UserArticleCanonicalState extends State<UserArticleCanonical> {
   Timer? _timer;
   int _setReadSeconds = 8;
   int readFunctionFired = 0;
-  NewsArticle? newsArticle;
+  UserArticle? newsArticle;
 
   final commentFormKey = GlobalKey<FormState>();
 
@@ -50,12 +49,12 @@ class _ArticleDiscriptionScreenState extends State<ArticleDiscriptionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    newsArticle = ModalRoute.of(context)!.settings.arguments as NewsArticle;
+    newsArticle = ModalRoute.of(context)!.settings.arguments as UserArticle;
 
     final listOfWords = newsArticle!.discription!.split(" ");
 
     _setReadSeconds =
-        ((listOfWords.length ~/ 2.9) > 20 ? 10 : listOfWords.length ~/ 2.9);
+        ((listOfWords.length ~/ 2.9) > 25 ? 17 : listOfWords.length ~/ 2.9);
 
     UserInformation userInformation = Provider.of<UserAccount>(
       context,
@@ -68,7 +67,7 @@ class _ArticleDiscriptionScreenState extends State<ArticleDiscriptionScreen> {
         if ((allPublishedArticles!.where(
                 (element) => element.idOfArticle == newsArticle!.articleId))
             .isEmpty) {
-          Provider.of<Articles>(context, listen: false).setReadArticle(
+          Provider.of<UserArticles>(context, listen: false).setReadArticle(
             userInformation,
             newsArticle!,
             readFunctionFired,
@@ -104,7 +103,7 @@ class _ArticleDiscriptionScreenState extends State<ArticleDiscriptionScreen> {
               errorText: 'Comment cannot be blank',
               sendButtonMethod: () async {
                 if (commentFormKey.currentState!.validate()) {
-                  Provider.of<Articles>(context, listen: false).addComment(
+                  Provider.of<UserArticles>(context, listen: false).addComment(
                     newsArticle!.articleId,
                     userInformaion,
                     Comments(
@@ -151,13 +150,13 @@ class MainDescriptionContent extends StatelessWidget {
     required this.setRead,
   });
   final void Function() setRead;
-  final NewsArticle constNewsArticle;
+  final UserArticle constNewsArticle;
 
   @override
   Widget build(
     BuildContext context,
   ) {
-    NewsArticle newsArticle = constNewsArticle;
+    UserArticle newsArticle = constNewsArticle;
     List<Comments>? allComments = constNewsArticle.comments;
     allComments!.sort(
         (a, b) => b.timeOfComment!.compareTo(a.timeOfComment as DateTime));
@@ -170,7 +169,8 @@ class MainDescriptionContent extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ArticleDiscriptionAppBar(
-                newsArticle: newsArticle,
+                userArticle: newsArticle,
+                publicArticle: null,
               ),
               const SizedBox(
                 height: 20,
@@ -267,7 +267,7 @@ class ArticleComments extends StatefulWidget {
   });
 
   final Comments comment;
-  NewsArticle newsArticle;
+  UserArticle newsArticle;
 
   @override
   State<ArticleComments> createState() => _ArticleCommentsState();
@@ -454,7 +454,6 @@ class _DescriptionTextWidgetState extends State<DescriptionTextWidget> {
                     setState(() {
                       flag = !flag;
                     });
-                    widget.setRead();
                   },
                 ),
               ],
@@ -495,7 +494,7 @@ class CustomePopupMenue extends StatelessWidget {
       onSelected: (value) async {
         if (value == 1) {
           if (user.userId == comment.commentorUserId) {
-            Provider.of<Articles>(context, listen: false).removeComment(
+            Provider.of<UserArticles>(context, listen: false).removeComment(
               comment.articleId!,
               user,
               comment,

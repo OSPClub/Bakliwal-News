@@ -9,8 +9,8 @@ import 'package:bakliwal_news/custome_icons_icons.dart';
 import 'package:bakliwal_news/style/style_declaration.dart';
 import 'package:bakliwal_news/models/screen_enums.dart';
 import 'package:bakliwal_news/view/news_card_shimmer.dart';
-import 'package:bakliwal_news/widget/news_card/news_card.dart';
-import 'package:bakliwal_news/models/news_article.dart';
+import 'package:bakliwal_news/widget/news_card/user_news_card.dart';
+import 'package:bakliwal_news/models/user_article.dart';
 import 'package:bakliwal_news/providers/news/changelogs.dart';
 import 'package:bakliwal_news/providers/view/page_transiction_provider.dart';
 
@@ -23,7 +23,7 @@ class ChangelogeScreen extends StatefulWidget {
 
 class _ChangelogeScreenState extends State<ChangelogeScreen> {
   bool isLoading = false;
-  List<NewsArticle> allChnagelogArticles = [];
+  List<UserArticle> allChnagelogArticles = [];
   UserInformation? userInformation;
 
   @override
@@ -107,7 +107,7 @@ class _ChangelogeScreenState extends State<ChangelogeScreen> {
             shrinkWrap: true,
             itemCount: allChnagelogArticles.length,
             itemBuilder: ((ctx, index) {
-              return NewsCard(
+              return UserNewsCard(
                 newsArticle: allChnagelogArticles[index],
                 userInformation: userInformation!,
                 screenName: ScreenType.bookmarks,

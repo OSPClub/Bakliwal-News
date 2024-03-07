@@ -1,6 +1,6 @@
 import 'package:bakliwal_news/models/all_read_articles.dart';
 import 'package:bakliwal_news/models/bookmarks.dart';
-import 'package:bakliwal_news/models/news_article.dart';
+import 'package:bakliwal_news/models/user_article.dart';
 
 class UserInformation {
   String? userId;

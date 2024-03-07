@@ -7,13 +7,13 @@ import 'package:bakliwal_news/package_service/locator_service.dart';
 import 'package:bakliwal_news/repository/auth_repo.dart';
 import 'package:bakliwal_news/models/user_information.dart';
 import 'package:bakliwal_news/models/article_upvotes.dart';
-import 'package:bakliwal_news/models/news_article.dart';
+import 'package:bakliwal_news/models/user_article.dart';
 
-class Articles with ChangeNotifier {
+class UserArticles with ChangeNotifier {
   int _rawSizeOfArticles = 0;
-  List<NewsArticle> _newsArticles = [];
+  List<UserArticle> _newsArticles = [];
   int articlesPerPage = 5;
-  List<NewsArticle> fetchedArticles = [];
+  List<UserArticle> fetchedArticles = [];
   DocumentSnapshot? _lastDoucmentSnapShot;
 
   bool _gettingMoreArticles = false;
@@ -23,7 +23,7 @@ class Articles with ChangeNotifier {
     return _rawSizeOfArticles;
   }
 
-  List<NewsArticle> get newsArticles {
+  List<UserArticle> get newsArticles {
     return [..._newsArticles];
   }
 
@@ -99,9 +99,9 @@ class Articles with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<List<NewsArticle>> articleConversion(
+  Future<List<UserArticle>> articleConversion(
       List<QueryDocumentSnapshot<Object?>> allArticles) async {
-    List<NewsArticle> fetchedArticles = [];
+    List<UserArticle> fetchedArticles = [];
     for (var rawArticle in allArticles) {
       final id = rawArticle.id;
       final article = rawArticle.data() as Map;
@@ -158,7 +158,7 @@ class Articles with ChangeNotifier {
       }
 
       fetchedArticles.add(
-        NewsArticle(
+        UserArticle(
           articleId: id.toString(),
           title: article["title"].toString(),
           comments: fetchedComments,
@@ -241,7 +241,7 @@ class Articles with ChangeNotifier {
 
   Future<void> setReadArticle(
     UserInformation userInformation,
-    NewsArticle newsArticle,
+    UserArticle newsArticle,
     int readFunctionFired,
     BuildContext context,
   ) async {
@@ -270,9 +270,9 @@ class Articles with ChangeNotifier {
     }
   }
 
-  Future<NewsArticle?> fetchAndSetSpecificArticle(String articleId) async {
+  Future<UserArticle?> fetchAndSetSpecificArticle(String articleId) async {
     Map<String, dynamic>? rawspecificArticle;
-    NewsArticle fetchedSpecificArticles;
+    UserArticle fetchedSpecificArticles;
     final articlesRef =
         FirebaseFirestore.instance.collection("articles").doc(articleId);
 
@@ -335,7 +335,7 @@ class Articles with ChangeNotifier {
         });
       }
 
-      fetchedSpecificArticles = NewsArticle(
+      fetchedSpecificArticles = UserArticle(
         articleId: id.toString(),
         title: article["title"].toString(),
         comments: fetchedComments,

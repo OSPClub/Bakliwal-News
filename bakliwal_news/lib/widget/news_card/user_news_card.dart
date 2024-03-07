@@ -11,15 +11,15 @@ import 'package:bakliwal_news/style/shimmers_effect.dart';
 import 'package:bakliwal_news/models/user_information.dart';
 import 'package:bakliwal_news/models/screen_enums.dart';
 import 'package:bakliwal_news/style/style_declaration.dart';
-import 'package:bakliwal_news/screens/secondary_screens/article_discription_screen.dart';
+import 'package:bakliwal_news/screens/secondary_screens/user_article_canonical.dart';
 import 'package:bakliwal_news/widget/view/common_article_popmenue.dart';
-import 'package:bakliwal_news/models/news_article.dart';
+import 'package:bakliwal_news/models/user_article.dart';
 
-class NewsCard extends StatefulWidget {
-  final NewsArticle newsArticle;
+class UserNewsCard extends StatefulWidget {
+  final UserArticle newsArticle;
   final UserInformation? userInformation;
   final ScreenType screenName;
-  const NewsCard({
+  const UserNewsCard({
     super.key,
     required this.userInformation,
     required this.newsArticle,
@@ -27,10 +27,10 @@ class NewsCard extends StatefulWidget {
   });
 
   @override
-  State<NewsCard> createState() => _NewsCardState();
+  State<UserNewsCard> createState() => _UserNewsCardState();
 }
 
-class _NewsCardState extends State<NewsCard> {
+class _UserNewsCardState extends State<UserNewsCard> {
   bool isUpvoted = false;
   bool? isUser;
   late List<ArticleUpvotes>? upVotes = widget.newsArticle.upVotes;
@@ -101,7 +101,7 @@ class _NewsCardState extends State<NewsCard> {
         color: Theme.of(context).colorScheme.secondary,
         child: InkWell(
           onTap: () => Navigator.of(context).pushNamed(
-            ArticleDiscriptionScreen.routeName,
+            UserArticleCanonical.routeName,
             arguments: widget.newsArticle,
           ),
           child: Padding(
@@ -243,7 +243,7 @@ class _NewsCardState extends State<NewsCard> {
                                 if (isUser!) {
                                   if (settings.enableComments!) {
                                     Navigator.of(context).pushNamed(
-                                      ArticleDiscriptionScreen.routeName,
+                                      UserArticleCanonical.routeName,
                                       arguments: widget.newsArticle,
                                     );
                                   } else {

@@ -7,8 +7,8 @@ import 'package:bakliwal_news/models/user_information.dart';
 import 'package:bakliwal_news/providers/user_account/user_account.dart';
 import 'package:bakliwal_news/models/screen_enums.dart';
 import 'package:bakliwal_news/view/news_card_shimmer.dart';
-import 'package:bakliwal_news/widget/news_card/news_card.dart';
-import 'package:bakliwal_news/models/news_article.dart';
+import 'package:bakliwal_news/widget/news_card/user_news_card.dart';
+import 'package:bakliwal_news/models/user_article.dart';
 import 'package:bakliwal_news/providers/news/user_bookmarks.dart';
 import 'package:bakliwal_news/providers/view/page_transiction_provider.dart';
 import 'package:bakliwal_news/style/style_declaration.dart';
@@ -21,7 +21,7 @@ class BookmarkScreen extends StatefulWidget {
 }
 
 class _BookmarkScreenState extends State<BookmarkScreen> {
-  List<NewsArticle> allBookmarks = [];
+  List<UserArticle> allBookmarks = [];
   UserInformation? userInformation;
 
   Future<void> loadData(context) async {
@@ -82,7 +82,7 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
             shrinkWrap: true,
             itemCount: allBookmarks.length,
             itemBuilder: ((ctx, index) {
-              return NewsCard(
+              return UserNewsCard(
                 newsArticle: allBookmarks[index],
                 userInformation: userInformation!,
                 screenName: ScreenType.bookmarks,

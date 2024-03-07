@@ -21,7 +21,7 @@ class Comments {
   });
 }
 
-class NewsArticle {
+class UserArticle {
   final String articleId;
   final String? title;
   final String? newsImageURL;
@@ -34,7 +34,7 @@ class NewsArticle {
   final int? articleViews;
   bool? isBookmarked;
 
-  NewsArticle({
+  UserArticle({
     required this.articleId,
     required this.title,
     required this.comments,

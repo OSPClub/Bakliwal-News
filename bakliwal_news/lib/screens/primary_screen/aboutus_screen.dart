@@ -257,7 +257,7 @@ class AboutUsScreen extends StatelessWidget {
                   height: 50,
                 ),
                 const Text(
-                  "Bakliwal News v2.0.1",
+                  "Bakliwal News v3.0.0",
                   style: TextStyle(color: AppColors.substituteColor),
                 ),
               ],

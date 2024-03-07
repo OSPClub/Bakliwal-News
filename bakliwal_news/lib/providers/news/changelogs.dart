@@ -1,16 +1,16 @@
 import 'package:flutter/widgets.dart';
 
-import 'package:bakliwal_news/models/news_article.dart';
+import 'package:bakliwal_news/models/user_article.dart';
 
 class Changelogs with ChangeNotifier {
   // ignore: prefer_final_fields
-  List<NewsArticle> _changelogs = [];
+  List<UserArticle> _changelogs = [];
 
-  List<NewsArticle> get changelogs {
+  List<UserArticle> get changelogs {
     return [..._changelogs];
   }
 
-  void addChangelogs(NewsArticle article) {
+  void addChangelogs(UserArticle article) {
     if (_changelogs.contains(article)) {
       return;
     } else {
@@ -19,7 +19,7 @@ class Changelogs with ChangeNotifier {
     }
   }
 
-  void removeChangelogs(NewsArticle article, Function reload) {
+  void removeChangelogs(UserArticle article, Function reload) {
     if (_changelogs.contains(article)) {
       _changelogs.remove(article);
       reload();

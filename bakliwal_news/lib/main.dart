@@ -1,4 +1,4 @@
-import 'package:bakliwal_news/screens/primary_screen/aboutus_screen.dart';
+import 'package:bakliwal_news/screens/secondary_screens/public_article_canonical.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -7,20 +7,22 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:bakliwal_news/firebase_options.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'package:bakliwal_news/providers/news/public_articles.dart';
+import 'package:bakliwal_news/screens/primary_screen/aboutus_screen.dart';
 import 'package:bakliwal_news/package_service/locator_service.dart';
 import 'package:bakliwal_news/providers/settings_const.dart';
 import 'package:bakliwal_news/providers/news/changelogs.dart';
 import 'package:bakliwal_news/providers/news/reading_history.dart';
 import 'package:bakliwal_news/providers/user_account/user_account.dart';
 import 'package:bakliwal_news/providers/view/page_transiction_provider.dart';
-import 'package:bakliwal_news/providers/news/articles.dart';
+import 'package:bakliwal_news/providers/news/user_articles.dart';
 import 'package:bakliwal_news/providers/news/user_bookmarks.dart';
 import 'package:bakliwal_news/view/home_view_screen.dart';
 import 'package:bakliwal_news/screens/secondary_screens/submit_article_screen.dart';
 import 'package:bakliwal_news/screens/auth_screen/login.dart';
 import 'package:bakliwal_news/screens/secondary_screens/account_details_screen.dart';
 import 'package:bakliwal_news/screens/primary_screen/profile_screen.dart';
-import 'package:bakliwal_news/screens/secondary_screens/article_discription_screen.dart';
+import 'package:bakliwal_news/screens/secondary_screens/user_article_canonical.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,7 +46,7 @@ class BakliwalNews extends StatelessWidget {
           create: (ctx) => PageTransictionIndex(),
         ),
         ChangeNotifierProvider(
-          create: (ctx) => Articles(),
+          create: (ctx) => UserArticles(),
         ),
         ChangeNotifierProvider(
           create: (ctx) => UserBookmarks(),
@@ -60,6 +62,9 @@ class BakliwalNews extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (ctx) => ConstSettings(),
+        ),
+        ChangeNotifierProvider(
+          create: (ctx) => PublicArticles(),
         ),
       ],
       child: ScreenUtilInit(
@@ -104,8 +109,10 @@ class BakliwalNews extends StatelessWidget {
             initialRoute: HomeViewScreen.routeName,
             routes: {
               HomeViewScreen.routeName: (ctx) => const HomeViewScreen(),
-              ArticleDiscriptionScreen.routeName: (ctx) =>
-                  const ArticleDiscriptionScreen(),
+              UserArticleCanonical.routeName: (ctx) =>
+                  const UserArticleCanonical(),
+              PublicArticleCanonical.routeName: (ctx) =>
+                  const PublicArticleCanonical(),
               ProfileScreen.routeName: (ctx) => const ProfileScreen(),
               AccountDetailsScreen.routeName: (ctx) =>
                   const AccountDetailsScreen(),

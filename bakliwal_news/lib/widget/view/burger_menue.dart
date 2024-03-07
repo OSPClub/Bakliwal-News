@@ -71,7 +71,8 @@ class BurgerMennueDrawer extends StatelessWidget {
                                           height: 50,
                                           width: 50,
                                           image: AssetImage(
-                                              "assets/images/profilePlaceholder.jpeg"),
+                                            "assets/images/profilePlaceholder.jpeg",
+                                          ),
                                         ),
                                       )
                                     : ClipRRect(
@@ -180,6 +181,35 @@ class BurgerMennueDrawer extends StatelessWidget {
                       ],
                     ),
                   ),
+                  SizedBox(
+                    height: spaceBetweenTabs,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                      Provider.of<PageTransictionIndex>(context, listen: false)
+                          .changeIndex(3);
+                    },
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.public,
+                          color: tabColor,
+                          size: tabsFontSize,
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          "Public Articles",
+                          style: TextStyle(
+                            color: tabColor,
+                            fontSize: tabsFontSize,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                   // SizedBox(
                   //   height: spaceBetweenTabs,
                   // ),
@@ -259,7 +289,7 @@ class BurgerMennueDrawer extends StatelessWidget {
                         Navigator.of(context).pop();
                         Provider.of<PageTransictionIndex>(context,
                                 listen: false)
-                            .changeIndex(4);
+                            .changeIndex(5);
                       } else {
                         Navigator.of(context).pop();
                         CustomSnackBar.showErrorSnackBar(context,
@@ -298,7 +328,7 @@ class BurgerMennueDrawer extends StatelessWidget {
                       Provider.of<PageTransictionIndex>(
                         context,
                         listen: false,
-                      ).changeIndex(3);
+                      ).changeIndex(4);
                       Navigator.of(context).pop();
                     },
                     child: Row(

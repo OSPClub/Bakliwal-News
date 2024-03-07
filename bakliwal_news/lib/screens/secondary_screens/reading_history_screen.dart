@@ -1,14 +1,14 @@
 // ignore_for_file: use_build_context_synchronously, unnecessary_null_comparison
 
-import 'package:bakliwal_news/providers/news/articles.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import 'package:bakliwal_news/providers/news/user_articles.dart';
 import 'package:bakliwal_news/package_service/locator_service.dart';
 import 'package:bakliwal_news/repository/auth_repo.dart';
-import 'package:bakliwal_news/screens/secondary_screens/article_discription_screen.dart';
+import 'package:bakliwal_news/screens/secondary_screens/user_article_canonical.dart';
 import 'package:bakliwal_news/models/all_read_articles.dart';
 import 'package:bakliwal_news/models/user_information.dart';
 import 'package:bakliwal_news/providers/user_account/user_account.dart';
@@ -100,11 +100,11 @@ class _ReadingHistoryScreenState extends State<ReadingHistoryScreen> {
               return ListTile(
                 onTap: () async {
                   final article =
-                      await Provider.of<Articles>(context, listen: false)
+                      await Provider.of<UserArticles>(context, listen: false)
                           .fetchAndSetSpecificArticle(
                               readingHistoryArticles[index].idOfArticle!);
                   Navigator.of(context).pushNamed(
-                      ArticleDiscriptionScreen.routeName,
+                      UserArticleCanonical.routeName,
                       arguments: article);
                 },
                 contentPadding: const EdgeInsets.all(10),

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'package:bakliwal_news/screens/primary_screen/public_feed_screen.dart';
 import 'package:bakliwal_news/screens/auth_screen/login.dart';
 import 'package:bakliwal_news/screens/secondary_screens/reading_history_screen.dart';
 import 'package:bakliwal_news/widget/view/bottom_navigation.dart';
 import 'package:bakliwal_news/widget/view/burger_menue.dart';
 import 'package:bakliwal_news/providers/view/page_transiction_provider.dart';
 import 'package:bakliwal_news/screens/primary_screen/bookmark_screen.dart';
-import 'package:bakliwal_news/screens/primary_screen/my_feed_screen.dart';
+import 'package:bakliwal_news/screens/primary_screen/user_feed_screen.dart';
 import 'package:bakliwal_news/screens/primary_screen/profile_screen.dart';
 import 'package:bakliwal_news/screens/secondary_screens/changelog_screen.dart';
 
@@ -41,8 +42,9 @@ class _HomeViewScreenState extends State<HomeViewScreen> {
 
     final screens = [
       {"screen": const ProfileScreen(), "title": "Profile"},
-      {"screen": const MyFeedScreen(), "title": "Bakliwal News"},
+      {"screen": const UserFeedScreen(), "title": "Bakliwal News"},
       {"screen": const BookmarkScreen(), "title": "Bookmarks"},
+      {"screen": const PublicFeedScreen(), "title": "Bakliwal News"},
       {"screen": const ChangelogeScreen(), "title": "Bakliwal News"},
       {"screen": const ReadingHistoryScreen(), "title": "Bakliwal News"},
     ];

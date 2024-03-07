@@ -3,26 +3,26 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_database/firebase_database.dart';
 
-import 'package:bakliwal_news/providers/news/articles.dart';
+import 'package:bakliwal_news/providers/news/user_articles.dart';
 import 'package:bakliwal_news/providers/user_account/user_account.dart';
-import 'package:bakliwal_news/models/news_article.dart';
+import 'package:bakliwal_news/models/user_article.dart';
 
 class UserBookmarks with ChangeNotifier {
   // ignore: prefer_final_fields
-  List<NewsArticle> _bookmarks = [];
+  List<UserArticle> _bookmarks = [];
 
-  List<NewsArticle> get bookmarks {
+  List<UserArticle> get bookmarks {
     return [..._bookmarks];
   }
 
   Future<void> fetchAndSetBookmarks(BuildContext ctx) async {
     _bookmarks = [];
-    List<NewsArticle> fetchedbookmarks = [];
+    List<UserArticle> fetchedbookmarks = [];
     String? userId =
         Provider.of<UserAccount>(ctx, listen: false).personalInformation.userId;
 
-    List<NewsArticle> allArticles =
-        Provider.of<Articles>(ctx, listen: false).newsArticles;
+    List<UserArticle> allArticles =
+        Provider.of<UserArticles>(ctx, listen: false).newsArticles;
     if (userId != "default") {
       final bookmarkRef = await FirebaseDatabase.instance
           .ref()
@@ -33,10 +33,10 @@ class UserBookmarks with ChangeNotifier {
       if (allBookmarks != null) {
         allBookmarks as Map;
         allBookmarks.forEach((articleId, bookmarkData) {
-          NewsArticle newsArticle = allArticles
+          UserArticle newsArticle = allArticles
               .firstWhere((article) => article.articleId == articleId);
           fetchedbookmarks.add(
-            NewsArticle(
+            UserArticle(
               articleId: newsArticle.articleId,
               title: newsArticle.title,
               comments: newsArticle.comments,
@@ -77,7 +77,7 @@ class UserBookmarks with ChangeNotifier {
   }
 
   Future<void> removeBookmark(
-    NewsArticle article,
+    UserArticle article,
     BuildContext ctx,
   ) async {
     String? userId =

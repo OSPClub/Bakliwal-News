@@ -7,13 +7,13 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:bakliwal_news/models/settings_model.dart';
 import 'package:bakliwal_news/models/user_information.dart';
 import 'package:bakliwal_news/providers/settings_const.dart';
-import 'package:bakliwal_news/screens/secondary_screens/article_discription_screen.dart';
+import 'package:bakliwal_news/screens/secondary_screens/user_article_canonical.dart';
 import 'package:bakliwal_news/widget/view/custome_snackbar.dart';
 import 'package:bakliwal_news/models/screen_enums.dart';
 import 'package:bakliwal_news/style/style_declaration.dart';
 import 'package:bakliwal_news/providers/user_account/user_account.dart';
 import 'package:bakliwal_news/providers/news/user_bookmarks.dart';
-import 'package:bakliwal_news/models/news_article.dart';
+import 'package:bakliwal_news/models/user_article.dart';
 
 class CommonArticlePopMenue extends StatefulWidget {
   const CommonArticlePopMenue({
@@ -23,7 +23,7 @@ class CommonArticlePopMenue extends StatefulWidget {
     required this.screenName,
   });
 
-  final NewsArticle newsArticle;
+  final UserArticle newsArticle;
   final double iconSize;
   final ScreenType? screenName;
 
@@ -100,7 +100,7 @@ class _CommonArticlePopMenueState extends State<CommonArticlePopMenue> {
           } else if (value == 2) {
             if (settings.enableComments!) {
               Navigator.of(context).pushNamed(
-                ArticleDiscriptionScreen.routeName,
+                UserArticleCanonical.routeName,
                 arguments: widget.newsArticle,
               );
             } else {
