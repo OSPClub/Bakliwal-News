@@ -191,13 +191,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
           if (userInformation.twitter != null)
             IconButton(
               onPressed: () async {
-                var url =
-                    'https://twitter.com/${userInformation.twitter!.trim()}/';
+                var url = 'https://x.com/${userInformation.twitter!.trim()}';
 
                 if (await canLaunchUrl(Uri.parse(url))) {
                   await launchUrl(
                     Uri.parse(url),
-                    mode: LaunchMode.externalApplication,
                   );
                 } else {
                   throw 'There was a problem to open the url: $url';

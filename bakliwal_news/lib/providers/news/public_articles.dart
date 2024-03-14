@@ -1,6 +1,7 @@
 // ignore_for_file: unnecessary_null_comparison, use_build_context_synchronously, avoid_print
 import 'dart:convert';
 
+import 'package:bakliwal_news/repository/dev_api_key.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 
@@ -117,7 +118,8 @@ class PublicArticles with ChangeNotifier {
       String apiEndpoint, int page, int perPage, String tag) async {
     var header = {
       'Content-type': 'application/json',
-      'api-key': '<YOUR_API_KEY_HERE>'
+      // Out sourced the api key into the new file (Ignored in the git commands) to avoid any missuse.
+      'api-key': devApiKey,
     };
     print(Uri.parse(
         '$apiEndpoint?page=$page&per_page=$perPage${apiPath != 'articles/latest' ? '&tag=$tag' : ''}'));

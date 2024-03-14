@@ -1,3 +1,4 @@
+import 'package:bakliwal_news/custome_icons_icons.dart';
 import 'package:bakliwal_news/models/public_article_model.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -6,6 +7,7 @@ import 'package:bakliwal_news/models/screen_enums.dart';
 import 'package:bakliwal_news/widget/view/common_article_popmenue.dart';
 import 'package:bakliwal_news/style/style_declaration.dart';
 import 'package:bakliwal_news/models/user_article.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ArticleDiscriptionAppBar extends StatelessWidget {
   final UserArticle? userArticle;
@@ -31,11 +33,21 @@ class ArticleDiscriptionAppBar extends StatelessWidget {
                     screenName: ScreenType.articleDiscription,
                   )
                 : Container(),
-            publicArticle == null
-                ? const SizedBox(
-                    width: 10,
+            userArticle == null
+                ? InkWell(
+                    onTap: () async {
+                      await launchUrl(Uri.parse(publicArticle!.url!));
+                    },
+                    child: const Icon(
+                      Icons.link,
+                      color: AppColors.secondary,
+                      size: 40,
+                    ),
                   )
                 : Container(),
+            const SizedBox(
+              width: 10,
+            ),
             InkWell(
               onTap: () => Navigator.of(context).pop(),
               child: const Icon(
@@ -132,6 +144,53 @@ class ArticleDiscriptionAppBar extends StatelessWidget {
                     color: Colors.blueGrey[200],
                   ),
                 ),
+                publicArticle != null
+                    ? const SizedBox(
+                        height: 2,
+                      )
+                    : Container(),
+                publicArticle != null
+                    ? Row(
+                        children: [
+                          publicArticle!.user.twitterUsername != null
+                              ? InkWell(
+                                  onTap: () async {
+                                    launchUrl(
+                                      Uri.parse(
+                                        "https://x.com/${publicArticle!.user.twitterUsername!}",
+                                      ),
+                                    );
+                                  },
+                                  child: const Icon(
+                                    CustomeIcons.twitter,
+                                    color: AppColors.textColor,
+                                  ),
+                                )
+                              : Container(),
+                          publicArticle!.user.twitterUsername != null
+                              ? const SizedBox(
+                                  width: 10,
+                                )
+                              : Container(),
+                          publicArticle!.user.githubUsername != null ||
+                                  publicArticle!.user.githubUsername!.isNotEmpty
+                              ? InkWell(
+                                  onTap: () async {
+                                    launchUrl(
+                                      Uri.parse(
+                                        "https://github.com/${publicArticle!.user.githubUsername!}",
+                                      ),
+                                    );
+                                  },
+                                  child: const Icon(
+                                    CustomeIcons.mark_github,
+                                    color: AppColors.textColor,
+                                  ),
+                                )
+                              : Container(),
+                        ],
+                      )
+                    : Container(),
               ],
             ),
           ),

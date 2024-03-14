@@ -1,15 +1,15 @@
 // ignore_for_file: use_build_context_synchronously
 import 'package:flutter/material.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:intl/intl.dart';
 import 'package:html/parser.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 
 import 'package:bakliwal_news/style/shimmers_effect.dart';
 
 import 'package:bakliwal_news/models/public_article_model.dart';
-import 'package:bakliwal_news/widget/view/article_discription_appbar.dart';
 import 'package:bakliwal_news/style/style_declaration.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:bakliwal_news/widget/view/article_discription_appbar.dart';
 
 // ignore: must_be_immutable
 class PublicArticleCanonical extends StatefulWidget {
@@ -93,6 +93,32 @@ class MainDescriptionContent extends StatelessWidget {
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   data: newsArticle.description!,
+                  imageBuilder: (uri, _, __) {
+                    return ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.network(
+                        uri.toString(),
+                        frameBuilder:
+                            (context, child, frame, wasSynchronouslyLoaded) {
+                          return child;
+                        },
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) {
+                            return child;
+                          } else {
+                            return CustomShimmerEffect.rectangular(
+                              height: 150,
+                            );
+                          }
+                        },
+                        errorBuilder: (context, error, stackTrace) {
+                          return Image.network(
+                            "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Image_not_available.png/800px-Image_not_available.png",
+                          );
+                        },
+                      ),
+                    );
+                  },
                   onTapLink: (s1, s2, s3) async {
                     var url = s2;
 
