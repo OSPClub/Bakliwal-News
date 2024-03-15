@@ -49,25 +49,28 @@ class PublicComments {
   });
 
   factory PublicComments.fromJson(Map<String, dynamic> json) {
-    List<PublicComments> children = [];
-    List childerenData = json['children'];
-    for (var element in childerenData) {
-      children.add(
-        PublicComments(
-          commentId: element['id_code'].toString(),
-          commentBody: element['body_html'].toString(),
-          createdAt: DateTime.parse(element['created_at'].toString()),
-          user: PublicUser.fromJson(element['user']),
-          children: [],
-        ),
-      );
+    List<PublicComments> sortComments(List childerenData) {
+      List<PublicComments> comments = [];
+      for (var element in childerenData) {
+        comments.add(
+          PublicComments(
+            commentId: element['id_code'].toString(),
+            commentBody: element['body_html'].toString(),
+            createdAt: DateTime.parse(element['created_at'].toString()),
+            user: PublicUser.fromJson(element['user']),
+            children: sortComments(element['children']),
+          ),
+        );
+      }
+      return comments;
     }
+
     return PublicComments(
       commentId: json['id_code'].toString(),
       commentBody: json['body_html'].toString(),
       createdAt: DateTime.parse(json['created_at'].toString()),
       user: PublicUser.fromJson(json['user']),
-      children: children,
+      children: sortComments(json['children']),
     );
   }
 }
@@ -126,7 +129,7 @@ class PublicArticleCanonicalModel {
   final DateTime? publishedTimestamp;
   final String? coverImage;
   final String? readingTimeMinutes;
-  final String? tags;
+  final List? tags;
   final String? bodyHtml;
   final PublicUser user;
   final List<PublicComments> comments;
@@ -149,6 +152,8 @@ class PublicArticleCanonicalModel {
 
   factory PublicArticleCanonicalModel.fromJson(
       Map<String, dynamic> json, List<PublicComments> comments) {
+    List tags = [];
+    tags = json['tag_list'].toString().split(',');
     return PublicArticleCanonicalModel(
       articleId: json['id'].toString(),
       title: json['title'].toString(),
@@ -159,7 +164,7 @@ class PublicArticleCanonicalModel {
       publishedTimestamp: DateTime.parse(json['published_timestamp']),
       coverImage: json['cover_image'].toString(),
       readingTimeMinutes: json['reading_time_minutes'].toString(),
-      tags: json['tag_list'].toString(),
+      tags: tags,
       bodyHtml: json['body_html'],
       user: PublicUser.fromJson(json['user']),
       comments: comments,

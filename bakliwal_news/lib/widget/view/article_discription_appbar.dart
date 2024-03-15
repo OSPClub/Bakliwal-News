@@ -152,7 +152,7 @@ class ArticleDiscriptionAppBar extends StatelessWidget {
                 publicArticle != null
                     ? Row(
                         children: [
-                          publicArticle!.user.twitterUsername != null
+                          publicArticle!.user.twitterUsername != "null"
                               ? InkWell(
                                   onTap: () async {
                                     launchUrl(
@@ -167,13 +167,12 @@ class ArticleDiscriptionAppBar extends StatelessWidget {
                                   ),
                                 )
                               : Container(),
-                          publicArticle!.user.twitterUsername != null
+                          publicArticle!.user.twitterUsername != "null"
                               ? const SizedBox(
                                   width: 10,
                                 )
                               : Container(),
-                          publicArticle!.user.githubUsername != null ||
-                                  publicArticle!.user.githubUsername!.isNotEmpty
+                          publicArticle!.user.githubUsername != "null"
                               ? InkWell(
                                   onTap: () async {
                                     launchUrl(

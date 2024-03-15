@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 // ignore_for_file: use_build_context_synchronously
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -173,6 +175,34 @@ class MainDescriptionContent extends StatelessWidget {
                 ),
               ),
               const SizedBox(
+                height: 15,
+              ),
+              Wrap(
+                // spacing: 5,
+                runSpacing: 5,
+                children: [
+                  if (newsArticle.tags![0].hashCode != 1)
+                    ...newsArticle.tags!.map((e) {
+                      return Card(
+                        shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(8))),
+                        color: const Color.fromARGB(255, 37, 37, 37),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 5, horizontal: 10),
+                          child: Text(
+                            "#${e.toString().trim()}",
+                            style: const TextStyle(
+                              color: Color.fromARGB(255, 180, 188, 207),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      );
+                    })
+                ],
+              ),
+              const SizedBox(
                 height: 25,
               ),
               Row(
@@ -207,6 +237,7 @@ class MainDescriptionContent extends StatelessWidget {
                 return ArticleComments(
                   comment: comment,
                   newsArticle: newsArticle,
+                  commentReplyPadding: 25,
                 );
               }),
             ],
@@ -223,16 +254,49 @@ class ArticleComments extends StatefulWidget {
     super.key,
     required this.comment,
     required this.newsArticle,
+    required this.commentReplyPadding,
   });
 
   final PublicComments comment;
   PublicArticleCanonicalModel newsArticle;
+  double commentReplyPadding;
 
   @override
   State<ArticleComments> createState() => _ArticleCommentsState();
 }
 
 class _ArticleCommentsState extends State<ArticleComments> {
+  @override
+  Widget build(BuildContext context) {
+    // ignore: avoid_unnecessary_containers
+    return Container(
+      child: Column(
+        children: [
+          CommentCard(comment: widget.comment),
+          if (widget.comment.children.isNotEmpty)
+            Container(
+              padding: EdgeInsets.only(left: widget.commentReplyPadding),
+              child: Column(
+                children: [
+                  ...widget.comment.children.map((element) {
+                    return ArticleComments(
+                      comment: element,
+                      newsArticle: widget.newsArticle,
+                      commentReplyPadding: 10,
+                    );
+                  }).toList(),
+                ],
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+}
+
+class CommentCard extends StatelessWidget {
+  const CommentCard({super.key, required this.comment});
+
   String _parseHtmlString(String htmlString) {
     final document = parse(htmlString);
     final String parsedString =
@@ -241,99 +305,93 @@ class _ArticleCommentsState extends State<ArticleComments> {
     return parsedString;
   }
 
+  final PublicComments comment;
+
   @override
   Widget build(BuildContext context) {
-    // ignore: avoid_unnecessary_containers
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    height: 40.0,
-                    width: 40.0,
-                    decoration: const BoxDecoration(
-                      color: Colors.blue,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(7),
-                      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  height: 40.0,
+                  width: 40.0,
+                  decoration: const BoxDecoration(
+                    color: Colors.blue,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(7),
                     ),
-                    child: widget.comment.user.profileImage == null ||
-                            widget.comment.user.profileImage!.isEmpty
-                        ? ClipRRect(
-                            borderRadius: BorderRadius.circular(7),
-                            child: const Image(
-                              fit: BoxFit.cover,
-                              image: AssetImage(
-                                "assets/images/profilePlaceholder.jpeg",
-                              ),
-                            ),
-                          )
-                        : ClipRRect(
-                            borderRadius: BorderRadius.circular(7),
-                            child: Image(
-                              fit: BoxFit.cover,
-                              image: NetworkImage(
-                                widget.comment.user.profileImage!,
-                              ),
+                  ),
+                  child: comment.user.profileImage == null ||
+                          comment.user.profileImage!.isEmpty
+                      ? ClipRRect(
+                          borderRadius: BorderRadius.circular(7),
+                          child: const Image(
+                            fit: BoxFit.cover,
+                            image: AssetImage(
+                              "assets/images/profilePlaceholder.jpeg",
                             ),
                           ),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget.comment.user.username!,
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                      Text(
-                        DateFormat("MMMd").format(
-                          widget.comment.createdAt,
+                        )
+                      : ClipRRect(
+                          borderRadius: BorderRadius.circular(7),
+                          child: Image(
+                            fit: BoxFit.cover,
+                            image: NetworkImage(
+                              comment.user.profileImage!,
+                            ),
+                          ),
                         ),
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.blueGrey[200],
-                        ),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      comment.user.username!,
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                    Text(
+                      DateFormat("MMMd").format(
+                        comment.createdAt,
                       ),
-                    ],
-                  ),
-                ],
-              ),
-            ],
-          ),
-          Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.grey[900],
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.blueGrey[200],
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
-            margin: const EdgeInsets.symmetric(vertical: 10),
-            padding: const EdgeInsets.all(15),
-            child: Text(
-              _parseHtmlString(widget.comment.commentBody).trim(),
-              style: const TextStyle(
-                fontSize: 18,
-                color: Colors.white,
-              ),
+          ],
+        ),
+        Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: Colors.grey[900],
+          ),
+          margin: const EdgeInsets.symmetric(vertical: 10),
+          padding: const EdgeInsets.all(15),
+          child: Text(
+            _parseHtmlString(comment.commentBody).trim(),
+            style: const TextStyle(
+              fontSize: 18,
+              color: Colors.white,
             ),
           ),
-          const SizedBox(
-            height: 10,
-          ),
-          // Row(
-          //   children: [
-          //     IconButton(onPressed: () {}, icon: const Icon(Icons.add))
-          //   ],
-          // )
-        ],
-      ),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+      ],
     );
   }
 }
